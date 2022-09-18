@@ -9,9 +9,8 @@ export class ClassComponent extends React.Component {
     randomNumber:
       Math.floor(Math.random() * this.props.max - this.props.min) + this.props.min,
     count: 0,
+    again: style.none
   };
-  // this.handleSubmit = this.handleSubmit.bind(this);
-
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +36,7 @@ export class ClassComponent extends React.Component {
       return {
         result: `Вы угадали число ${state.userNumber}!
         Попыток: ${state.count}`,
+        again: style.again,
       };
     });
   };
@@ -44,6 +44,16 @@ export class ClassComponent extends React.Component {
   handleChange = (e) => {
     this.setState({
       userNumber: e.target.value,
+    });
+  };
+
+  handleClick = () => {
+    this.setState({
+      again: style.none,
+      count: 0,
+      result: 'Введите число в белое поле',
+      randomNumber:
+        Math.floor(Math.random() * this.props.max - this.props.min) + this.props.min,
     });
   };
 
@@ -62,7 +72,11 @@ export class ClassComponent extends React.Component {
             type='number'
             id='user_number'
             onChange={this.handleChange} />
-          <button className={style.btn}>Угадать</button>
+          <button className={style.btn} type="submit">Угадать</button>
+          <button
+            className={this.state.again}
+            type="reset"
+            onClick={this.handleClick}>Сыграть ещё</button>
         </form>
       </div>
     );
