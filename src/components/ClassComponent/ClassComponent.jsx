@@ -9,7 +9,6 @@ export class ClassComponent extends React.Component {
     randomNumber:
       Math.floor(Math.random() * this.props.max - this.props.min) + this.props.min,
     count: 0,
-    again: style.none,
     isOver: false,
   };
 
@@ -45,7 +44,6 @@ export class ClassComponent extends React.Component {
         result: `Вы угадали число ${state.userNumber}!
         Попыток: ${state.count + 1}`,
         isOver: true,
-        inputDisabled: true
       };
     });
   };
@@ -86,7 +84,7 @@ export class ClassComponent extends React.Component {
           />
           {this.state.isOver ?
             <button
-              className={this.style.btn}
+              className={style.btn}
               type="reset"
               onClick={this.handleClick}
             >Сыграть ещё</button> :
