@@ -60,6 +60,8 @@ export class ClassComponent extends React.Component {
       result: 'Введите число в белое поле',
       randomNumber:
         Math.floor(Math.random() * this.props.max - this.props.min) + this.props.min,
+      userNumber: '',
+      isOver: false
     });
   };
 
