@@ -26,8 +26,7 @@
     width: 100px;
 }
 
-.btn,
-.again {
+.btn {
     padding: 5px 10px;
     background-color: transparent;
     color: white;
@@ -37,13 +36,8 @@
     transition-timing-function: ease-in-out;
 }
 
-.btn:hover,
-.again:hover {
+.btn:hover {
     background-color: white;
     border-color: white;
     color: black;
-}
-
-.none {
-    display: none
 }

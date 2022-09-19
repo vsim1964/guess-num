@@ -9,34 +9,43 @@ export class ClassComponent extends React.Component {
     randomNumber:
       Math.floor(Math.random() * this.props.max - this.props.min) + this.props.min,
     count: 0,
-    again: style.none
+    again: style.none,
+    isOver: false,
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState(state => ({
-      count: state.count + 1,
-    }));
     this.setState(state => {
       if (!state.userNumber) {
         return {
           result: 'Вы забыли ввести число',
         };
       }
+      if (state.userNumber > 10 || state.userNumber < 0) {
+        return {
+          result: 'Число должно быть между 0 и 10 включительно',
+          userNumber: ''
+        };
+      }
       if (state.userNumber > state.randomNumber) {
         return {
+          count: state.count + 1,
           result: `${state.userNumber} больше загаданного`,
+          userNumber: ''
         };
       }
       if (state.userNumber < state.randomNumber) {
         return {
+          count: state.count + 1,
           result: `${state.userNumber} меньше загаданного`,
+          userNumber: ''
         };
       }
       return {
         result: `Вы угадали число ${state.userNumber}!
-        Попыток: ${state.count}`,
-        again: style.again,
+        Попыток: ${state.count + 1}`,
+        isOver: true,
+        inputDisabled: true
       };
     });
   };
@@ -49,7 +58,7 @@ export class ClassComponent extends React.Component {
 
   handleClick = () => {
     this.setState({
-      again: style.none,
+      isOver: false,
       count: 0,
       result: 'Введите число в белое поле',
       randomNumber:
@@ -71,12 +80,17 @@ export class ClassComponent extends React.Component {
             className={style.input}
             type='number'
             id='user_number'
-            onChange={this.handleChange} />
-          <button className={style.btn} type="submit">Угадать</button>
-          <button
-            className={this.state.again}
-            type="reset"
-            onClick={this.handleClick}>Сыграть ещё</button>
+            onChange={this.handleChange}
+            value={this.state.userNumber}
+            disabled={this.state.isOver}
+          />
+          {this.state.isOver ?
+            <button
+              className={this.style.btn}
+              type="reset"
+              onClick={this.handleClick}
+            >Сыграть ещё</button> :
+            <button className={style.btn} type="submit">Угадать</button>}
         </form>
       </div>
     );
