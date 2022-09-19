@@ -56,7 +56,6 @@ export class ClassComponent extends React.Component {
 
   handleClick = () => {
     this.setState({
-      isOver: false,
       count: 0,
       result: 'Введите число в белое поле',
       randomNumber:
